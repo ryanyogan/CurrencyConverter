@@ -19,7 +19,7 @@ class Options extends Component {
   handleThemesPress = () => this.props.navigation.navigate('Themes');
 
   handleSitePress = () =>
-    Linking.openURL('httsp://fixer.io').catch(() =>
+    Linking.openURL('http://fixer.io').catch(() =>
       this.props.alertWithType(
         'error',
         'Error',
