@@ -1,5 +1,6 @@
 /* eslint-disable react/no-array-index-key */
 import React, { Component } from 'react';
+import { object } from 'prop-types';
 import { View, ScrollView, StatusBar } from 'react-native';
 import ESStyleSheet from 'react-native-extended-stylesheet';
 
@@ -15,10 +16,13 @@ const styles = ESStyleSheet.create({
 const colors = ['Blue', 'Green', 'Orange', 'Purple'];
 
 class Themes extends Component {
-  state = {};
+  static propTypes = {
+    navigation: object, // eslint-disable-line
+  };
 
   handleThemePress = color => {
     console.log('theme pressed with color', color);
+    this.props.navigation.goBack(null);
   };
 
   render() {
