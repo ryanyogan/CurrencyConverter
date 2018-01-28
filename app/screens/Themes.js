@@ -26,7 +26,7 @@ class Themes extends Component {
       <ScrollView>
         <StatusBar translucent={false} barStyle="default" />
         {colors.map((color, index) => {
-          const colorHex = styles[`$${color.toLowerCase()}`];
+          const colorHex = styles[`$${color.toLowerCase() || 'blue'}`];
 
           return (
             <View key={index}>
