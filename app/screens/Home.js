@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { object } from 'prop-types';
+import { object, func, string } from 'prop-types';
 import { StatusBar, KeyboardAvoidingView } from 'react-native';
+import { connect } from 'react-redux';
 
 import { Container } from '../components/Container';
 import { Logo } from '../components/Logo';
@@ -21,6 +22,9 @@ const TEMP_CONVERSION_DATE = new Date();
 class Home extends Component {
   static propTypes = {
     navigation: object, // eslint-disable-line
+    dispatch: func,
+    baseCurrency: string,
+    quoteCurrency: string,
   };
 
   handlePressBaseCurrency = () =>
@@ -30,7 +34,7 @@ class Home extends Component {
     this.props.navigation.navigate('CurrencyList', { title: 'Quote Currency' });
 
   handleTextChange = amount => {
-    this.props.disaptch(changeCurrencyAmount(amount));
+    this.props.dispatch(changeCurrencyAmount(amount));
   };
 
   handleSwapCurrency = () => {
@@ -49,20 +53,20 @@ class Home extends Component {
           <Logo />
           <InputWithButton
             onPress={this.handlePressBaseCurrency}
-            buttonText={TEMP_BASE_CURRENCY}
-            defaultValue={TEMP_BASE_PRICE}
+            buttonText={this.props.baseCurrency}
+            defaultValue={this.props.amount.toString()}
             keyboardType="numeric"
             onChangeText={this.handleTextChange}
           />
           <InputWithButton
             onPress={this.handlePressQuoteCurrency}
-            buttonText={TEMP_QUOTE_CURRENCY}
+            buttonText={this.props.quoteCurrency}
             editable={false}
             value={TEMP_QUOTE_PRICE}
           />
           <LastConverted
-            base={TEMP_BASE_CURRENCY}
-            quote={TEMP_QUOTE_CURRENCY}
+            base={this.props.baseCurrency}
+            quote={this.props.quoteCurrency}
             date={TEMP_CONVERSION_DATE}
             conversionRate={TEMP_CONVERSION_RATE}
           />
@@ -76,4 +80,6 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default connect(({ currencies }) => ({
+  ...currencies,
+}))(Home);
