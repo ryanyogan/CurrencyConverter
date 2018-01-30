@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { object, func, string } from 'prop-types';
+import { bool, object, func, string, number } from 'prop-types';
 import { StatusBar, KeyboardAvoidingView } from 'react-native';
 import { connect } from 'react-redux';
 
@@ -25,6 +25,9 @@ class Home extends Component {
     dispatch: func,
     baseCurrency: string,
     quoteCurrency: string,
+    conversionRate: number,
+    isFetching: bool,
+    lastConvertedDate: object, // eslint-disable-line
   };
 
   handlePressBaseCurrency = () =>
@@ -44,6 +47,12 @@ class Home extends Component {
   handleOptionsPress = () => this.props.navigation.navigate('Options');
 
   render() {
+    let quotePrice = (this.props.amount * this.props.conversionRate).toFixed(2);
+
+    if (this.props.isFetching) {
+      quotePrice = '...';
+    }
+
     return (
       <Container>
         <StatusBar translucent={false} barStyle="light-content" />
@@ -62,13 +71,13 @@ class Home extends Component {
             onPress={this.handlePressQuoteCurrency}
             buttonText={this.props.quoteCurrency}
             editable={false}
-            value={TEMP_QUOTE_PRICE}
+            value={quotePrice}
           />
           <LastConverted
             base={this.props.baseCurrency}
             quote={this.props.quoteCurrency}
-            date={TEMP_CONVERSION_DATE}
-            conversionRate={TEMP_CONVERSION_RATE}
+            date={this.props.lastConvertedDate}
+            conversionRate={this.props.conversionRate}
           />
           <ClearButton
             text="Reverse Currencies"
@@ -80,6 +89,17 @@ class Home extends Component {
   }
 }
 
-export default connect(({ currencies }) => ({
-  ...currencies,
-}))(Home);
+export default connect(({ currencies }) => {
+  const conversionSelector =
+    currencies.conversions[currencies.baseCurrency] || 0;
+  const rates = conversionSelector.rates || {};
+
+  return {
+    ...currencies,
+    conversionRate: rates[currencies.quoteCurrency] || 0,
+    isFetching: conversionSelector.isFetching,
+    lastConvertedDate: conversionSelector.date
+      ? new Date(conversionSelector.date)
+      : new Date(),
+  };
+})(Home);
