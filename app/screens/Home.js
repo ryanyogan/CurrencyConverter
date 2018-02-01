@@ -9,6 +9,7 @@ import { InputWithButton } from '../components/TextInput';
 import { ClearButton } from '../components/Buttons';
 import { LastConverted } from '../components/Text';
 import { Header } from '../components/Header';
+import { connectAlert } from '../components/Alert';
 
 import {
   swapCurrency,
@@ -26,10 +27,21 @@ class Home extends Component {
     isFetching: bool,
     lastConvertedDate: object, // eslint-disable-line
     primaryColor: string,
+    alertWithType: func,
+    currencyError: string,
   };
 
   componentWillMount() {
     this.props.dispatch(getInitialConversion());
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (
+      nextProps.currencyError &&
+      nextProps.currencyError !== this.props.currencyError
+    ) {
+      this.props.alertWithType('error', 'Error', nextProps.currencyError);
+    }
   }
 
   handlePressBaseCurrency = () =>
@@ -112,5 +124,6 @@ export default connect(({ currencies, theme }) => {
     lastConvertedDate: conversionSelector.date
       ? new Date(conversionSelector.date)
       : new Date(),
+    currencyError: currencies.error,
   };
-})(Home);
+})(connectAlert(Home));
