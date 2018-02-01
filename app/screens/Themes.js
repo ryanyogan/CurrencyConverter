@@ -1,10 +1,13 @@
 /* eslint-disable react/no-array-index-key */
 import React, { Component } from 'react';
-import { object } from 'prop-types';
+import { object, func } from 'prop-types';
 import { View, ScrollView, StatusBar } from 'react-native';
 import ESStyleSheet from 'react-native-extended-stylesheet';
+import { connect } from 'react-redux';
 
 import { ListItem, Separator } from '../components/List';
+
+import { changePrimaryColor } from '../actions/theme';
 
 const styles = ESStyleSheet.create({
   $blue: '$primaryBlue',
@@ -18,10 +21,11 @@ const colors = ['Blue', 'Green', 'Orange', 'Purple'];
 class Themes extends Component {
   static propTypes = {
     navigation: object, // eslint-disable-line
+    dispatch: func,
   };
 
   handleThemePress = color => {
-    console.log('theme pressed with color', color);
+    this.props.dispatch(changePrimaryColor(color));
     this.props.navigation.goBack(null);
   };
 
@@ -50,4 +54,4 @@ class Themes extends Component {
   }
 }
 
-export default Themes;
+export default connect()(Themes);

@@ -12,13 +12,6 @@ import { Header } from '../components/Header';
 
 import { swapCurrency, changeCurrencyAmount } from '../actions/currencies';
 
-const TEMP_BASE_CURRENCY = 'USD';
-const TEMP_QUOTE_CURRENCY = 'GBP';
-const TEMP_BASE_PRICE = '100';
-const TEMP_QUOTE_PRICE = '79.74';
-const TEMP_CONVERSION_RATE = 0.794;
-const TEMP_CONVERSION_DATE = new Date();
-
 class Home extends Component {
   static propTypes = {
     navigation: object, // eslint-disable-line
@@ -28,13 +21,20 @@ class Home extends Component {
     conversionRate: number,
     isFetching: bool,
     lastConvertedDate: object, // eslint-disable-line
+    primaryColor: string,
   };
 
   handlePressBaseCurrency = () =>
-    this.props.navigation.navigate('CurrencyList', { title: 'Base Currency' });
+    this.props.navigation.navigate('CurrencyList', {
+      title: 'Base Currency',
+      type: 'BASE',
+    });
 
   handlePressQuoteCurrency = () =>
-    this.props.navigation.navigate('CurrencyList', { title: 'Quote Currency' });
+    this.props.navigation.navigate('CurrencyList', {
+      title: 'Quote Currency',
+      type: 'QUOTE',
+    });
 
   handleTextChange = amount => {
     this.props.dispatch(changeCurrencyAmount(amount));
@@ -54,24 +54,26 @@ class Home extends Component {
     }
 
     return (
-      <Container>
+      <Container backgroundColor={this.props.primaryColor}>
         <StatusBar translucent={false} barStyle="light-content" />
 
         <Header onPress={this.handleOptionsPress} />
         <KeyboardAvoidingView behavior="padding">
-          <Logo />
+          <Logo tintColor={this.props.primaryColor} />
           <InputWithButton
             onPress={this.handlePressBaseCurrency}
             buttonText={this.props.baseCurrency}
             defaultValue={this.props.amount.toString()}
             keyboardType="numeric"
             onChangeText={this.handleTextChange}
+            textColor={this.props.primaryColor}
           />
           <InputWithButton
             onPress={this.handlePressQuoteCurrency}
             buttonText={this.props.quoteCurrency}
             editable={false}
             value={quotePrice}
+            textColor={this.props.primaryColor}
           />
           <LastConverted
             base={this.props.baseCurrency}
@@ -89,13 +91,14 @@ class Home extends Component {
   }
 }
 
-export default connect(({ currencies }) => {
+export default connect(({ currencies, theme }) => {
   const conversionSelector =
     currencies.conversions[currencies.baseCurrency] || 0;
   const rates = conversionSelector.rates || {};
 
   return {
     ...currencies,
+    ...theme,
     conversionRate: rates[currencies.quoteCurrency] || 0,
     isFetching: conversionSelector.isFetching,
     lastConvertedDate: conversionSelector.date
