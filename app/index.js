@@ -7,6 +7,7 @@ import Navigator from './config/routes';
 import { AlertProvider } from './components/Alert';
 
 import store from './config/store';
+import { ApolloProvider, client } from './config/apollo';
 
 ESStyleSheet.build({
   $primaryBlue: '#4F6D7A',
@@ -36,8 +37,10 @@ const AppWithNavigation = connect(({ nav }) => ({
 
 export default () => (
   <Provider store={store}>
-    <AlertProvider>
-      <AppWithNavigation />
-    </AlertProvider>
+    <ApolloProvider client={client}>
+      <AlertProvider>
+        <AppWithNavigation />
+      </AlertProvider>
+    </ApolloProvider>
   </Provider>
 );
