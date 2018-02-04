@@ -1,12 +1,24 @@
 import React from 'react';
-import { func } from 'prop-types';
+import { func, bool } from 'prop-types';
 import { View, TouchableOpacity, Image } from 'react-native';
 
 import styles from './styles';
 
-const Header = ({ onPress }) => (
+const Header = ({ onPress, onWarningPress, isConnected }) => (
   <View style={styles.container}>
-    <TouchableOpacity style={styles.button} onPress={onPress}>
+    {!isConnected && (
+      <TouchableOpacity style={styles.button} onPress={onWarningPress}>
+        <Image
+          resizeMode="contain"
+          style={styles.icon}
+          source={require('./images/warning.png')}
+        />
+      </TouchableOpacity>
+    )}
+    <TouchableOpacity
+      style={[styles.button, styles.buttonRight]}
+      onPress={onPress}
+    >
       <Image
         resizeMode="contain"
         style={styles.icon}
@@ -18,6 +30,8 @@ const Header = ({ onPress }) => (
 
 Header.propTypes = {
   onPress: func,
+  onWarningPress: func,
+  isConnected: bool,
 };
 
 export default Header;

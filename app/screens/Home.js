@@ -30,6 +30,7 @@ class Home extends Component {
     primaryColor: string,
     alertWithType: func,
     currencyError: string,
+    isConnected: bool,
   };
 
   componentWillMount() {
@@ -53,8 +54,8 @@ class Home extends Component {
     );
   }
 
-  handleNetworkChange = info => {
-    this.props.dispatch(changeNetworkStatus(info));
+  handleNetworkChange = ({ type }) => {
+    this.props.dispatch(changeNetworkStatus(type));
   };
 
   handlePressBaseCurrency = () =>
@@ -79,6 +80,13 @@ class Home extends Component {
 
   handleOptionsPress = () => this.props.navigation.navigate('Options');
 
+  handleDisconnectedPress = () =>
+    this.props.alertWithType(
+      'warn',
+      'Not connected to the internet',
+      'You are currently not connected to the internet - some features may not work.',
+    );
+
   render() {
     let quotePrice = (this.props.amount * this.props.conversionRate).toFixed(2);
 
@@ -90,7 +98,11 @@ class Home extends Component {
       <Container backgroundColor={this.props.primaryColor}>
         <StatusBar translucent={false} barStyle="light-content" />
 
-        <Header onPress={this.handleOptionsPress} />
+        <Header
+          onPress={this.handleOptionsPress}
+          onWarningPress={this.handleDisconnectedPress}
+          isConnected={this.props.isConnected}
+        />
         <KeyboardAvoidingView behavior="padding">
           <Logo tintColor={this.props.primaryColor} />
           <InputWithButton
@@ -124,7 +136,7 @@ class Home extends Component {
   }
 }
 
-export default connect(({ currencies, theme }) => {
+export default connect(({ currencies, theme, network: { connected } }) => {
   const conversionSelector =
     currencies.conversions[currencies.baseCurrency] || 0;
   const rates = conversionSelector.rates || {};
@@ -138,5 +150,6 @@ export default connect(({ currencies, theme }) => {
       ? new Date(conversionSelector.date)
       : new Date(),
     currencyError: currencies.error,
+    isConnected: connected,
   };
 })(connectAlert(Home));
