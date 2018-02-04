@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { Provider, connect } from 'react-redux';
 import ESStyleSheet from 'react-native-extended-stylesheet';
 import { addNavigationHelpers } from 'react-navigation';
+import { PersistGate } from 'redux-persist/es/integration/react';
 
 import Navigator from './config/routes';
 import { AlertProvider } from './components/Alert';
-import { PersistGate } from 'redux-persist/es/integration/react';
 
 import configStore from './config/store';
 import { ApolloProvider, client } from './config/apollo';
