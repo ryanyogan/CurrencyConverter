@@ -43,7 +43,6 @@ class InputWithButton extends Component {
 
     const containerStyles = [styles.container];
     if (editable === false) {
-      // containerStyles.push(styles.containerDisabled);
       containerStyles.push({
         backgroundColor: this.backgroundColor.interpolate({
           inputRange: [0, 1],
