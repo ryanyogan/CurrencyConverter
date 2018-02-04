@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { bool, object, func, string, number } from 'prop-types';
-import { StatusBar, KeyboardAvoidingView } from 'react-native';
+import { StatusBar, KeyboardAvoidingView, NetInfo } from 'react-native';
 import { connect } from 'react-redux';
 
 import { Container } from '../components/Container';
@@ -16,6 +16,7 @@ import {
   changeCurrencyAmount,
   getInitialConversion,
 } from '../actions/currencies';
+import { changeNetworkStatus } from '../actions/network';
 
 class Home extends Component {
   static propTypes = {
@@ -33,6 +34,7 @@ class Home extends Component {
 
   componentWillMount() {
     this.props.dispatch(getInitialConversion());
+    NetInfo.addEventListener('connectionChange', this.handleNetworkChange);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -43,6 +45,17 @@ class Home extends Component {
       this.props.alertWithType('error', 'Error', nextProps.currencyError);
     }
   }
+
+  componentWillUnmount() {
+    NetInfo.removeEventListener(
+      'connectionChange',
+      this.handlePressQuoteCurrency,
+    );
+  }
+
+  handleNetworkChange = info => {
+    this.props.dispatch(changeNetworkStatus(info));
+  };
 
   handlePressBaseCurrency = () =>
     this.props.navigation.navigate('CurrencyList', {
