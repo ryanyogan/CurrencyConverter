@@ -3,6 +3,7 @@ import { any, oneOf, number } from 'prop-types';
 import { Animated, Dimensions } from 'react-native';
 
 const WINDOW_DIMENSIONS = Dimensions.get('window');
+const SHOULD_ANIMATE = process.env.NODE_ENV !== 'development';
 
 class AnimateIn extends Component {
   static propTypes = {
@@ -18,11 +19,15 @@ class AnimateIn extends Component {
   }
 
   componentDidMount() {
-    Animated.timing(this.animatedValue, {
-      toValue: 1,
-      duration: this.props.duration || 500,
-      delay: this.props.delay || 0,
-    }).start();
+    if (SHOULD_ANIMATE) {
+      Animated.timing(this.animatedValue, {
+        toValue: 1,
+        duration: this.props.duration || 500,
+        delay: this.props.delay || 0,
+      }).start();
+    } else {
+      this.animatedValue.setValue(1);
+    }
   }
 
   render() {
