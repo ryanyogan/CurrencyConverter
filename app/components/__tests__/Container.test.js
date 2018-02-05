@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { View } from 'react-native';
+import { View, Keyboard } from 'react-native';
 
 import { Container, styles } from '../Container';
 
@@ -27,6 +27,13 @@ it('renders the child prop', () => {
 it('uses the specified backgroundColor, if prop is provided', () => {
   const rendered = renderer
     .create(<Container backgroundColor="red" />)
+    .toJSON();
+  expect(rendered).toMatchSnapshot();
+});
+
+it('dismisses the keyboard onPress', () => {
+  const rendered = renderer
+    .create(<Container onPress={() => Keyboard.dismiss()} />)
     .toJSON();
   expect(rendered).toMatchSnapshot();
 });
