@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Provider, connect } from 'react-redux';
-import ESStyleSheet from 'react-native-extended-stylesheet';
 import { addNavigationHelpers } from 'react-navigation';
 import { PersistGate } from 'redux-persist/es/integration/react';
 
@@ -9,19 +8,9 @@ import { AlertProvider } from './components/Alert';
 
 import configStore from './config/store';
 import { ApolloProvider, client } from './config/apollo';
+import buildStyles from './config/styles';
 
-ESStyleSheet.build({
-  $primaryBlue: '#4F6D7A',
-  $primaryOrange: '#D57A66',
-  $primaryGreen: '#00BD9D',
-  $primaryPurple: '#9E768F',
-
-  $white: '#FFFFFF',
-  $border: '#E2E2E2',
-  $inputText: '#797979',
-  $lightGrey: '#F0F0F0',
-  $darkText: '#343434',
-});
+buildStyles();
 
 const App = ({ dispatch, nav }) => (
   <Navigator
