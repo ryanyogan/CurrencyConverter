@@ -1,0 +1,89 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`changes the base currency 1`] = `
+Object {
+  "amount": 100,
+  "baseCurrency": "CZK",
+  "conversions": Object {
+    "CZK": Object {
+      "date": "",
+      "isFetching": true,
+      "rates": Object {},
+    },
+  },
+  "error": null,
+  "quoteCurrency": "CAD",
+}
+`;
+
+exports[`changes the currency amount 1`] = `
+Object {
+  "amount": 1000,
+  "baseCurrency": "USD",
+  "conversions": Object {},
+  "error": null,
+  "quoteCurrency": "CAD",
+}
+`;
+
+exports[`changes the quote currency 1`] = `
+Object {
+  "amount": 100,
+  "baseCurrency": "USD",
+  "conversions": Object {
+    "GBP": Object {
+      "date": "",
+      "isFetching": true,
+      "rates": Object {},
+    },
+  },
+  "error": null,
+  "quoteCurrency": "GBP",
+}
+`;
+
+exports[`defaults change currency amount to 0 1`] = `
+Object {
+  "amount": 0,
+  "baseCurrency": "USD",
+  "conversions": Object {},
+  "error": null,
+  "quoteCurrency": "CAD",
+}
+`;
+
+exports[`snapshots nested data on initialState 1`] = `
+Object {
+  "amount": 100,
+  "baseCurrency": "USD",
+  "conversions": Object {
+    "USD": Object {
+      "date": "",
+      "isFetching": true,
+      "rates": Object {},
+    },
+  },
+  "error": null,
+  "quoteCurrency": "CAD",
+}
+`;
+
+exports[`snapshots the initialState 1`] = `
+Object {
+  "amount": 100,
+  "baseCurrency": "USD",
+  "conversions": Object {},
+  "error": null,
+  "quoteCurrency": "CAD",
+}
+`;
+
+exports[`swaps base and quote currencies 1`] = `
+Object {
+  "amount": 100,
+  "baseCurrency": "CAD",
+  "conversions": Object {},
+  "error": null,
+  "quoteCurrency": "USD",
+}
+`;
