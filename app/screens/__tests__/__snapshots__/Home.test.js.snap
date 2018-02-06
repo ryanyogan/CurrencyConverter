@@ -1,0 +1,98 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders properly 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <ConnectedAlert
+    baseCurrency="USD"
+    conversionRate={0}
+    conversions={
+      Object {
+        "USD": Object {},
+      }
+    }
+    currencyError={undefined}
+    dispatch={[Function]}
+    isConnected={true}
+    isFetching={undefined}
+    lastConvertedDate={2018-02-06T17:03:44.971Z}
+    primaryColor="red"
+    quoteCurrency="GBP"
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "class",
+    "props": Object {
+      "alert": undefined,
+      "alertWithType": undefined,
+      "baseCurrency": "USD",
+      "conversionRate": 0,
+      "conversions": Object {
+        "USD": Object {},
+      },
+      "currencyError": undefined,
+      "dispatch": [Function],
+      "isConnected": true,
+      "isFetching": undefined,
+      "lastConvertedDate": 2018-02-06T17:03:44.971Z,
+      "primaryColor": "red",
+      "quoteCurrency": "GBP",
+    },
+    "ref": null,
+    "rendered": null,
+    "type": [Function],
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "class",
+      "props": Object {
+        "alert": undefined,
+        "alertWithType": undefined,
+        "baseCurrency": "USD",
+        "conversionRate": 0,
+        "conversions": Object {
+          "USD": Object {},
+        },
+        "currencyError": undefined,
+        "dispatch": [Function],
+        "isConnected": true,
+        "isFetching": undefined,
+        "lastConvertedDate": 2018-02-06T17:03:44.971Z,
+        "primaryColor": "red",
+        "quoteCurrency": "GBP",
+      },
+      "ref": null,
+      "rendered": null,
+      "type": [Function],
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+    "context": Object {
+      "store": Object {
+        "clearActions": [Function],
+        "dispatch": [Function],
+        "getActions": [Function],
+        "getState": [Function],
+        "replaceReducer": [Function],
+        "subscribe": [Function],
+      },
+    },
+  },
+}
+`;
