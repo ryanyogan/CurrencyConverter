@@ -1,3 +1,4 @@
+import { setContext } from 'redux-saga/effects';
 import {
   CHANGE_CURRENCY_AMOUNT,
   SWAP_CURRENCY,
@@ -7,7 +8,6 @@ import {
   CONVERSION_RESULT,
   CONVERSION_ERROR,
 } from '../actions/currencies';
-import { setContext } from 'redux-saga/effects';
 
 const initialState = {
   baseCurrency: 'USD',
