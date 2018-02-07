@@ -1,4 +1,3 @@
-import { setContext } from 'redux-saga/effects';
 import {
   CHANGE_CURRENCY_AMOUNT,
   SWAP_CURRENCY,
