@@ -3,5 +3,7 @@
     "sdkVersion": "25.0.0",
     "orientation": "portrait",
     "privacy": "public"
-  }
+  },
+  "name": "currencyconverter",
+  "displayName": "Currency Converter"
 }
