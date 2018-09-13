@@ -1,11 +1,13 @@
 import React from 'react';
 import { any } from 'prop-types';
-import { View } from 'react-native';
+import { View, Keyboard, TouchableWithoutFeedback } from 'react-native';
 
 import styles from './styles';
 
 const Container = ({ children }) => (
-  <View style={styles.container}>{children}</View>
+  <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+    <View style={styles.container}>{children}</View>
+  </TouchableWithoutFeedback>
 );
 
 Container.propTypes = {
