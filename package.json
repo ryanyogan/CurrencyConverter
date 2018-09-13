@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^6.3.1",
+    "@types/react-native": "^0.56.18",
     "color": "^3.0.0",
     "expo": "^27.0.1",
     "moment": "^2.22.2",
