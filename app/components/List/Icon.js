@@ -1,13 +1,17 @@
 import React from 'react';
-import { bool } from 'prop-types';
+import { bool, string } from 'prop-types';
 import { Image, View } from 'react-native';
 
 import styles from './styles';
 
-const Icon = ({ checkmark, visible }) => {
+const Icon = ({ checkmark, visible, iconBackground }) => {
   const iconStyles = [styles.icon];
   if (visible) {
     iconStyles.push(styles.iconVisible);
+  }
+
+  if (iconBackground) {
+    iconStyles.push({ backgroundColor: iconBackground });
   }
 
   return (
@@ -26,6 +30,7 @@ const Icon = ({ checkmark, visible }) => {
 Icon.propTypes = {
   checkmark: bool,
   visible: bool,
+  iconBackground: string,
 };
 
 export default Icon;
