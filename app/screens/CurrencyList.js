@@ -8,8 +8,6 @@ import { ListItem, Separator } from '../components/List';
 import currencyList from '../data/currencies';
 import { changeBaseCurrency, changeQuoteCurrency } from '../actions/currencies';
 
-const TEMP_CURRENT_CURRENCY = 'CAD';
-
 class CurrencyList extends Component {
   static propTypes = {
     navigation: object, // eslint-disable-line
