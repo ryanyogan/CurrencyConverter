@@ -10,7 +10,11 @@ import { ClearButton } from '../components/Buttons';
 import { LastConverted } from '../components/Text';
 import { Header } from '../components/Header';
 
-import { swapCurrency, changeCurrencyAmount } from '../actions/currencies';
+import {
+  getInitialConverstion,
+  swapCurrency,
+  changeCurrencyAmount,
+} from '../actions/currencies';
 
 class Home extends Component {
   static propTypes = {
@@ -24,6 +28,10 @@ class Home extends Component {
     lastConvertedDate: object, // eslint-disable-line
     primaryColor: string,
   };
+
+  componentWillMount() {
+    this.props.dispatch(getInitialConverstion());
+  }
 
   handlePressBaseCurrency = () =>
     this.props.navigation.navigate('CurrencyList', {
