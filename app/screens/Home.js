@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { bool, object, func, number, string } from 'prop-types';
 import { StatusBar, KeyboardAvoidingView } from 'react-native';
 import { connect } from 'react-redux';
+import { connectAlert } from '../components/Alert';
 
 import { Container } from '../components/container';
 import { Logo } from '../components/Logo';
@@ -27,10 +28,21 @@ class Home extends Component {
     isFetching: bool,
     lastConvertedDate: object, // eslint-disable-line
     primaryColor: string,
+    alertWithType: func,
+    currencyError: string,
   };
 
   componentWillMount() {
     this.props.dispatch(getInitialConverstion());
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (
+      nextProps.currencyError &&
+      nextProps.currencyError !== this.props.currencyError
+    ) {
+      this.props.alertWithType('error', 'Error', nextProps.currencyError);
+    }
   }
 
   handlePressBaseCurrency = () =>
@@ -117,7 +129,8 @@ const mapStateToProps = state => {
       ? new Date(conversionSelector.date)
       : new Date(),
     primaryColor: state.theme.primaryColor,
+    currencyError: state.currencies.error,
   };
 };
 
-export default connect(mapStateToProps)(Home);
+export default connect(mapStateToProps)(connectAlert(Home));
