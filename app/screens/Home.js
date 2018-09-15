@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { object } from 'prop-types';
-import { View, StatusBar, KeyboardAvoidingView } from 'react-native';
+import { StatusBar, KeyboardAvoidingView } from 'react-native';
 
 import { Container } from '../components/container';
 import { Logo } from '../components/Logo';
@@ -8,6 +8,8 @@ import { InputWithButton } from '../components/TextInput';
 import { ClearButton } from '../components/Buttons';
 import { LastConverted } from '../components/Text';
 import { Header } from '../components/Header';
+
+import { swapCurrency, changeCurrencyAmount } from '../actions/currencies';
 
 const TEMP_BASE_CURRENCY = 'USD';
 const TEMP_QUOTE_CURRENCY = 'GBP';
@@ -21,8 +23,6 @@ class Home extends Component {
     navigation: object, // eslint-disable-line
   };
 
-  state = {};
-
   handlePressBaseCurrency = () =>
     this.props.navigation.navigate('CurrencyList', {
       title: 'Base Currency',
@@ -33,9 +33,9 @@ class Home extends Component {
       title: 'Quote Currency',
     });
 
-  handleTextChange = value => console.log(value);
+  handleTextChange = amount => console.log(changeCurrencyAmount(amount));
 
-  handleSwapCurrency = () => console.log('Swap');
+  handleSwapCurrency = () => console.log(swapCurrency());
 
   handleOptionsPress = () =>
     this.props.navigation.navigate('Options', {
