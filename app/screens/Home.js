@@ -22,6 +22,7 @@ class Home extends Component {
     conversionRate: number,
     isFetching: bool,
     lastConvertedDate: object, // eslint-disable-line
+    primaryColor: string,
   };
 
   handlePressBaseCurrency = () =>
@@ -53,13 +54,13 @@ class Home extends Component {
     }
 
     return (
-      <Container>
+      <Container backgroundColor={this.props.primaryColor}>
         <StatusBar translucent={false} barStyle="light-content" />
 
         <Header onPress={this.handleOptionsPress} />
 
         <KeyboardAvoidingView behavior="padding">
-          <Logo />
+          <Logo tintColor={this.props.primaryColor} />
 
           <InputWithButton
             buttonText={this.props.baseCurrency}
@@ -67,12 +68,14 @@ class Home extends Component {
             onChangeText={this.handleTextChange}
             defaultValue={this.props.amount.toString()}
             keyboardType="numeric"
+            textColor={this.props.primaryColor}
           />
           <InputWithButton
             buttonText={this.props.quoteCurrency}
             onPress={this.handlePressQuoteCurrency}
             editable={false}
             value={quotePrice}
+            textColor={this.props.primaryColor}
           />
           <LastConverted
             base={this.props.baseCurrency}
@@ -105,6 +108,7 @@ const mapStateToProps = state => {
     lastConvertedDate: conversionSelector.data
       ? new Date(conversionSelector.date)
       : new Date(),
+    primaryColor: state.theme.primaryColor,
   };
 };
 

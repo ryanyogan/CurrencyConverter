@@ -14,6 +14,7 @@ class CurrencyList extends Component {
     dispatch: func,
     baseCurrency: string,
     quoteCurrency: string,
+    primaryColor: string,
   };
 
   handlePress = currency => {
@@ -43,6 +44,7 @@ class CurrencyList extends Component {
               text={item}
               onPress={() => this.handlePress(item)}
               selected={item === comparisonCurrency}
+              iconBackground={this.props.primaryColor}
             />
           )}
           keyExtractor={item => item}
@@ -53,7 +55,8 @@ class CurrencyList extends Component {
   }
 }
 
-export default connect(({ currencies }) => ({
+export default connect(({ currencies, theme }) => ({
   quoteCurrency: currencies.quoteCurrency,
   baseCurrency: currencies.baseCurrency,
+  primaryColor: theme.primaryColor,
 }))(CurrencyList);
