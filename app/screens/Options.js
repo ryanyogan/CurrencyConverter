@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import { object } from 'prop-types';
-import { ScrollView, StatusBar, SafeAreaView, Platform } from 'react-native';
+import {
+  ScrollView,
+  StatusBar,
+  SafeAreaView,
+  Platform,
+  Linking,
+} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 import { ListItem, Separator } from '../components/List';
@@ -19,7 +25,8 @@ class Options extends Component {
       title: 'Themes',
     });
 
-  handleSitePress = () => {};
+  handleSitePress = () =>
+    Linking.openURL('https://fixer.io').catch(() => alert('error'));
 
   render() {
     return (
