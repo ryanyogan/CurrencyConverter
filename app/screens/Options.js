@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { object } from 'prop-types';
+import { object, func } from 'prop-types';
 import {
   ScrollView,
   StatusBar,
@@ -10,6 +10,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 
 import { ListItem, Separator } from '../components/List';
+import { connectAlert } from '../components/Alert';
 
 const ICON_COLOR = '#868686';
 const ICON_SIZE = 23;
@@ -17,7 +18,8 @@ const ICON_PREFIX = Platform.OS === 'ios' ? 'ios' : 'md';
 
 class Options extends Component {
   static propTypes = {
-    navigation: object,
+    navigation: object, // eslint-disable-line
+    alertWithType: func,
   };
 
   handleThemesPress = () =>
@@ -26,7 +28,9 @@ class Options extends Component {
     });
 
   handleSitePress = () =>
-    Linking.openURL('https://fixer.io').catch(() => alert('error'));
+    Linking.openURL('https://fixer.io').catch(() =>
+      this.props.alertWithType('error', 'Sorry!', 'Fixer.io cannot be opened.'),
+    );
 
   render() {
     return (
@@ -63,4 +67,4 @@ class Options extends Component {
   }
 }
 
-export default Options;
+export default connectAlert(Options);
