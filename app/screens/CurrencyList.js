@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { object, func } from 'prop-types';
+import { object, func, string } from 'prop-types';
 import { FlatList, StatusBar, SafeAreaView } from 'react-native';
 import { connect } from 'react-redux';
 
 import { ListItem, Separator } from '../components/List';
 
-import currencies from '../data/currencies';
+import currencyList from '../data/currencies';
 import { changeBaseCurrency, changeQuoteCurrency } from '../actions/currencies';
 
 const TEMP_CURRENT_CURRENCY = 'CAD';
@@ -14,6 +14,8 @@ class CurrencyList extends Component {
   static propTypes = {
     navigation: object, // eslint-disable-line
     dispatch: func,
+    baseCurrency: string,
+    quoteCurrency: string,
   };
 
   handlePress = currency => {
@@ -28,16 +30,21 @@ class CurrencyList extends Component {
   };
 
   render() {
+    let comparisonCurrency = this.props.baseCurrency;
+    if (this.props.navigation.state.params.type === 'quote') {
+      comparisonCurrency = this.props.quoteCurrency;
+    }
+
     return (
       <SafeAreaView style={{ flex: 1 }}>
         <StatusBar barStyle="dark-content" translucent={false} />
         <FlatList
-          data={currencies}
+          data={currencyList}
           renderItem={({ item }) => (
             <ListItem
               text={item}
               onPress={() => this.handlePress(item)}
-              selected={item === TEMP_CURRENT_CURRENCY}
+              selected={item === comparisonCurrency}
             />
           )}
           keyExtractor={item => item}
@@ -48,4 +55,7 @@ class CurrencyList extends Component {
   }
 }
 
-export default connect()(CurrencyList);
+export default connect(({ currencies }) => ({
+  quoteCurrency: currencies.quoteCurrency,
+  baseCurrency: currencies.baseCurrency,
+}))(CurrencyList);
